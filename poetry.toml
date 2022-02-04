@@ -1,0 +1,4 @@
+experimental.new-installer = false
+installer.parallel = true
+virtualenvs.create = false
+virtualenvs.in-project = true

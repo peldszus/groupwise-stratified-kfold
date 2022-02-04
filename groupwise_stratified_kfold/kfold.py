@@ -60,15 +60,16 @@ class GroupwiseStratifiedKFold:
         """
         Groupwise, stratified k-fold splits of a dataset for validation.
         It is stratified, because the label distributions aim to be similar
-        across the splits. It is groupwise, because classification items are grouped,
-        i.e. considered belonging together, so that not items but groups of items
-        are sampled.
+        across the splits. It is groupwise, because classification items are
+        grouped, i.e. considered belonging together, so that not items but
+        groups of items are sampled.
 
         In our case we sample classification items grouped together because they
-        belong to one input group, so that the kfold does not contain fragments of groups.
+        belong to one input group, so that the kfold does not contain fragments
+        of groups.
 
-        The input `data` is considered to be a dict mapping from group ids to lists of
-        labels.
+        The input `data` is considered to be a dict mapping from group ids to
+        lists of labels.
         """
         self.fold_register = {}
         ungrouped_data = list(chain(*list(data.values())))
@@ -149,8 +150,8 @@ class RepeatedGroupwiseStratifiedKFold:
     ):
         """
         Repeated, groupwise, stratified k-fold splits of a dataset for validation.
-        The GroupwiseStratifiedKFold is repeated with different random seeds in order
-        to yield different kfold splits of the same dataset.
+        The GroupwiseStratifiedKFold is repeated with different random seeds in
+        order to yield different kfold splits of the same dataset.
         """
         self.iterations = []
         for repeat_nr in range(repeats):
@@ -164,5 +165,4 @@ class RepeatedGroupwiseStratifiedKFold:
 
     def __iter__(self):
         """Yields group ids of training items, testing items, and the iteration id."""
-        for train_ids, test_ids, iteration_id in self.iterations:
-            yield train_ids, test_ids, iteration_id
+        yield from self.iterations

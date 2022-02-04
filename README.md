@@ -3,7 +3,8 @@
 
 ## Requirements
 
-Python >= 3.8
+- Python >= 3.8
+- Make
 
 
 ## Installation
@@ -64,7 +65,7 @@ for train_group_ids, test_group_ids, iteration_id in RepeatedGroupwiseStratified
 
 ## How to develop
 
-Run `poetry install` to build and `pytest` to test.
+Run `make` to build, `make test` to test and `make lint` to lint.
 
 
 ## About

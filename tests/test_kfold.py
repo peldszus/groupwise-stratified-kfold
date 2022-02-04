@@ -77,13 +77,13 @@ def test_groupwise_stratified_kfold():
     assert len(folds) == 4
 
     # No overlap between train and tests folds.
-    assert all(set(train) & set(test) == set([]) for train, test in folds)
+    assert all(set(train) & set(test) == set() for train, test in folds)
 
     # Each train/test split covers the whole data.
     all(set(train) | set(test) == set(example_data_1) for train, test in folds)
 
     # All test sets of the folding cover the whole data.
-    assert set([group for tr, test in folds for group in test]) == set(
+    assert {group for tr, test in folds for group in test} == set(
         example_data_1
     )
 
@@ -111,8 +111,9 @@ def test_repeated_groupwise_stratified_kfold():
     # Correct length of folds.
     assert len(folds) == 2 * 4
 
-    # Every fold is different. Note this only works when suffle=True and the dataset is large enough.
-    assert len(set(tuple(sorted(test)) for _, test, _ in folds)) == 2 * 4
+    # Every fold is different. Note this only works when suffle=True and the
+    # dataset is large enough.
+    assert len({tuple(sorted(test)) for _, test, _ in folds}) == 2 * 4
 
 
 def test_absolute_class_counts():
@@ -173,7 +174,8 @@ def test_diff_distribution():
         diff_distribution({0: 0.1, 9: 0.9}, {0: 0.5, 9: 0.5}), 0.8
     )
 
-    # Weights can defined per class how much a diff for that class contributes to the total diff.
+    # Weights can defined per class how much a diff for that class contributes
+    # to the total diff.
     assert math.isclose(
         diff_distribution(
             {0: 0.1, 9: 0.9}, {0: 0.5, 9: 0.5}, weights={0: 0.99, 9: 0.01}
