@@ -1,0 +1,37 @@
+name: main
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Prepare env, install python dependencies
+      run: |
+        make build
+
+    - name: Test
+      run: |
+        make test
+
+    - name: Lint
+      run: |
+        make lint
+
+    - name: Upload test coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
+        verbose: false
