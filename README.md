@@ -1,5 +1,9 @@
 # Groupwise, stratified k-fold splits of a dataset for validation
 
+[![Build Status](https://github.com/peldszus/groupwise-stratified-kfold/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/peldszus/groupwise-stratified-kfold/actions)
+[![codecov](https://codecov.io/gh/peldszus/groupwise-stratified-kfold/branch/main/graph/badge.svg)](https://codecov.io/gh/peldszus/groupwise-stratified-kfold)
+[![GitHub](https://img.shields.io/github/license/peldszus/groupwise-stratified-kfold)](LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 ## Requirements
 
