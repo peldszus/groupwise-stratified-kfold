@@ -59,11 +59,8 @@ for train_group_ids, test_group_ids, iteration_id in RepeatedGroupwiseStratified
 
 ## Current limitation
 
-- Every class has to appear in at least k groups as you want to k-fold.
-  Less frequent than k classes or even singletons are not covered and
-  will lead to errors.
-- The algorithm prefers similar distributions over similar size, i.e.
-  that folds might vary in size depending on how much the groups vary
+- The algorithm prefers similar class distributions over similar sized folds
+  i.e. that folds might vary in size depending on how much the groups vary
   in size.
 
 

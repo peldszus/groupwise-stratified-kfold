@@ -101,6 +101,42 @@ def test_groupwise_stratified_kfold():
     ]
 
 
+def test_groupwise_stratified_kfold_groups_not_a_multiple_of_k():
+    # Add one extra 17th group to the data.
+    data = dict(example_data_1, g17="ABCDEF")
+    folds = list(GroupwiseStratifiedKFold(4, data))
+
+    # Correct length of folds.
+    assert len(folds) == 4
+
+    # No overlap between train and tests folds.
+    assert all(set(train) & set(test) == set() for train, test in folds)
+
+    # Each train/test split covers the whole data.
+    all(set(train) | set(test) == set(data) for train, test in folds)
+
+    # All test sets of the folding cover the whole data.
+    assert {group for tr, test in folds for group in test} == set(data)
+
+
+def test_groupwise_stratified_kfold_less_than_k_samples_for_class():
+    # Add one extra 17th group to the data with a unique X label.
+    data = dict(example_data_1, g17="ABCDEFX")
+    folds = list(GroupwiseStratifiedKFold(4, data))
+
+    # Correct length of folds.
+    assert len(folds) == 4
+
+    # No overlap between train and tests folds.
+    assert all(set(train) & set(test) == set() for train, test in folds)
+
+    # Each train/test split covers the whole data.
+    all(set(train) | set(test) == set(data) for train, test in folds)
+
+    # All test sets of the folding cover the whole data.
+    assert {group for tr, test in folds for group in test} == set(data)
+
+
 def test_repeated_groupwise_stratified_kfold():
     folds = list(
         RepeatedGroupwiseStratifiedKFold(

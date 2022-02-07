@@ -2,11 +2,8 @@
 Groupwise, stratified k-fold splits of a dataset for validation.
 
 Current limitation:
-- Every class has to appear in at least k groups as you want to k-fold.
-  Less frequent than k classes or even singletons are not covered and
-  will lead to errors.
-- The algorithm prefers similar distributions over similar size, i.e.
-  that folds might vary in size depending on how much the groups vary
+- The algorithm prefers similar class distributions over similar sized folds
+  i.e. that folds might vary in size depending on how much the groups vary
   in size.
 """
 
@@ -103,6 +100,10 @@ class GroupwiseStratifiedKFold:
 
             # in a pass, fill each fold with the best group
             for this_fold in fold_order_in_this_pass:
+                if len(pool) == 0:
+                    # if the number of groups is not a multiple of
+                    # the desired number of folds
+                    break
 
                 # find the group in the pool, that minimizes the difference of
                 # this fold to the base distribution
