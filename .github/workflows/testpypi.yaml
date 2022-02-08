@@ -1,0 +1,33 @@
+name: Publish to test-pypi
+on:
+  push:
+    tags:
+      - "v*.*.*-test"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Prepare env, install python dependencies
+        run: |
+          make build
+
+      - name: Test
+        run: |
+          make test
+
+      - name: Lint
+        run: |
+          make lint
+
+      - name: Publish to test-pypi
+        run: |
+          poetry config pypi-token.test-pypi TEST_PYPI_API_TOKEN
+          poetry config repositories.test-pypi https://test.pypi.org/legacy/
+          poetry publish --repository test-pypi

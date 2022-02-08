@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "groupwise-stratified-kfold"
-version = "0.1.0"
+version = "0.1.0-alpha1"
 description = ""
 readme = "README.md"
 authors = ["Andreas Peldszus <andreas.peldszus@posteo.de>"]
