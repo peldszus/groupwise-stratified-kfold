@@ -30,6 +30,6 @@ jobs:
 
       - name: Publish to test-pypi
         run: |
-          env/bin/poetry config pypi-token.test-pypi ${TEST_PYPI_API_TOKEN}
           env/bin/poetry config repositories.test-pypi https://test.pypi.org/legacy/
+          env/bin/poetry config pypi-token.test-pypi ${TEST_PYPI_API_TOKEN}
           env/bin/poetry publish --repository test-pypi
